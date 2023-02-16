@@ -25,6 +25,7 @@ class Form(QMainWindow):
     def changed_url(self):
         url = self.web.url().toString()
         self.web.page().runJavaScript('localStorage.getItem("shop_cd");', 0, self.change_call_function)
+        self.web.page().runJavaScript('localStorage.getItem("authorization");', 0, self.change_call_function)
         self.web.page().runJavaScript('document.querySelector(".flex_div>.posmenu_wr>a:first-child").innerText', 0, self.change_call_function)
         print("changed url:", url)
 
@@ -41,6 +42,7 @@ class Form(QMainWindow):
         """
         # self.web.page().runJavaScript(script, 0, self.call_function)
         self.web.page().runJavaScript('localStorage.getItem("shop_cd");', 0, self.load_finish_call_function)
+        self.web.page().runJavaScript('localStorage.getItem("authorization");', 0, self.change_call_function)
         self.web.page().runJavaScript('document.querySelector(".flex_div>.posmenu_wr>a:first-child").innerText', 0, self.load_finish_call_function)
         # print("ok")
 
