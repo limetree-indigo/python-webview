@@ -32,11 +32,11 @@ class Form(QMainWindow):
         self.value = value.split(":")
         if "null" not in self.value:
             print(value)
-            self.script = f"""
-            var pro = document.querySelector(".order_state");
-            pro.innerText = pro.innerText + '-' + '{value}';
-            """
-            self.web.page().runJavaScript(self.script)
+            # self.script = f"""
+            # var pro = document.querySelector(".order_state");
+            # pro.innerText = pro.innerText + '-' + '{value}';
+            # """
+            # self.web.page().runJavaScript(self.script)
             self.timer = QTimer(self)
             self.timer.start(2000)
             self.timer.timeout.connect(self.alert)
