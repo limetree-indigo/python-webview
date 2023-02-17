@@ -1,13 +1,31 @@
 import sys
 
-import schedule
+import winsound # wav 파일 전용, 따로 패키지 설치할 필요없음
+
+import requests
+from pygame import mixer
+from playsound import playsound
 from PySide6.QtWidgets import QMainWindow, QApplication
 from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtCore import QUrl
+from PySide6.QtCore import QUrl, QThread, QTimer
+from PySide6.QtMultimedia import QMediaPlayer
+import asyncio
+
+
+mixer.init()
+mixer.music.load("baemin_alert.wav")
+
+
+class CallValue(QThread):
+    def run(self):
+        while True:
+            self.sleep(3)
+            print("call value")
 
 
 class Form(QMainWindow):
     def __init__(self):
+        self.url = ""
         QMainWindow.__init__(self)
         self.init_widget()
 
@@ -19,19 +37,35 @@ class Form(QMainWindow):
         self.web.urlChanged.connect(self.changed_url)
         # self.web.loadProgress.connect(self.load_finish)
         self.setCentralWidget(self.web)
+        # schedule.every(3).seconds.do(self.web.reload)
         self.web.loadFinished.connect(self.load_finish)
         
 
     def changed_url(self):
-        url = self.web.url().toString()
+        self.url = self.web.url().toString()
         self.web.page().runJavaScript('localStorage.getItem("shop_cd");', 0, self.change_call_function)
         self.web.page().runJavaScript('localStorage.getItem("authorization");', 0, self.change_call_function)
         self.web.page().runJavaScript('document.querySelector(".flex_div>.posmenu_wr>a:first-child").innerText', 0, self.change_call_function)
-        print("changed url:", url)
+        print("changed url:", self.url)
+        if self.url == "http://pos.handsorder.com/#/shop_order_list":
+            # call_value = CallValue()
+            # call_value.start()
+            self.timer = QTimer(self)
+            self.timer.start(2000)
+            self.timer.timeout.connect(self.test)
 
     def test(self):
         print("abc")
+        # self.player = QMediaPlayer()
+        # self.player.setSource(QUrl.fromLocalFile("/sound/notification.mpe"))
+        # self.player.setVolume(50)
+        # self.player.play()
+        # playsound("./sound/notification.wav")
+        mixer.music.play()
+        # winsound.PlaySound("baemin_alert.wav", winsound.SND_FILENAME)
+        # winsound.PlaySound("baemin_alert.wav", winsound.SND_FILENAME)
         
+
 
     def load_finish(self):
         script = """var req = new XMLHttpRequest();
@@ -52,15 +86,11 @@ class Form(QMainWindow):
     def change_call_function(self, val):
         print("change:", val)
 
-    
-
-
-        
-
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     form = Form()
     form.show()
+    # call_value = CallValue()
+    # call_value.start()
 
-    exit(app.exec())
+    sys.exit(app.exec())
