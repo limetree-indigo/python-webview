@@ -6,8 +6,8 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtCore import QUrl, QTimer, Signal, Slot, QPoint, Qt
 
-mixer.init()
-mixer.music.load("notification.wav")
+# mixer.init()
+# mixer.music.load("notification.wav")
 
 class PopUp(QWidget):
     on_top = Signal()
@@ -40,6 +40,7 @@ class Form(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.init_widget()
+        
 
     # 메인 화면 초기화
     def init_widget(self):
@@ -79,7 +80,7 @@ class Form(QMainWindow):
         if self.cnt > 0:
             print("주문")
             self.web.reload()
-            mixer.music.play()
+            # mixer.music.play()
             self.pop_up = PopUp()
             self.pop_up.btn.setText(f"주문 : {self.cnt}")
             self.pop_up.on_top.connect(self.go_top)
