@@ -15,7 +15,8 @@ class PopUp(QWidget):
     def __init__(self):
         super().__init__()
 
-        # self.setWindowFlags(Qt.WindowStaysOnTopHint)
+        # 창이 뜰 때 최상단에 위치
+        self.setWindowFlags(Qt.WindowStaysOnTopHint)
         # self.setFixedSize(200, 200)
 
         self.btn = QPushButton("주문", self)
@@ -86,9 +87,10 @@ class Form(QMainWindow):
             self.pop_up.on_top.connect(self.go_top)
             self.pop_up.show()
 
-    # 알림창 버튼을 클릭했을 때 주문창이 최상단으로 온다.
+    # 알림창 버튼을 클릭했을 때 알림창은 닫히고 주문창이 최상단으로 온다.
     def go_top(self):
         print("go_top")
+        self.pop_up.close()
         self.showNormal()
         self.activateWindow()
 
