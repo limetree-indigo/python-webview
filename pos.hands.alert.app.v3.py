@@ -89,7 +89,7 @@ class Form(QMainWindow):
             self.btn_go_orderlist.clicked.connect(self.show_orderlist)
             self.call_orderlist.showMaximized()         
             self.timer = QTimer(self)
-            self.timer.start(5000)
+            self.timer.start(10000)
             self.timer.timeout.connect(self.call_api)
     
     def init_drag_button(self):
@@ -127,7 +127,7 @@ class Form(QMainWindow):
             print("주문")
             self.btn_go_orderlist.setIcon(QIcon("order_alert.png"))
             self.web.reload()
-            # mixer.music.play()
+            mixer.music.play()
         else:
             self.btn_go_orderlist.setIcon(QIcon("order_wait.png"))    
 

@@ -12,4 +12,4 @@
 ### pip install pygame -> 소리를 설정하기 위해서 사용, mp3, wav 모두 가능 백그라운드에서 동작
 
 #### pyinstaller 사용시 해당 데이터를 포함하려면
-#### ` pyinstaller -w --add-data "notification.wav;." --add-data "order_wait.png;." --add-data "order_alert.png;." --add-data "hands_logo.ico;." -n HandsPos -i=hands_logo.ico  pos.hands.alert.app.v3.py`
+#### `pyinstaller -w --add-data "notification.wav;." --add-data "order_wait.png;." --add-data "order_alert.png;." --add-data "hands_logo.ico;." -n HandsPos -i=hands_logo.ico  pos.hands.alert.app.v3.py`
